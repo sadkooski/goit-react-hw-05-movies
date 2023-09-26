@@ -1,8 +1,12 @@
 import { useParams } from 'react-router-dom';
 
-export const MovieDetails = () => {
+export const MovieDetails = movies => {
   const { id } = useParams();
+  const getMovieById = id => {
+    return movies.find(movie => movie.id === id);
+  };
   const movie = getMovieById(id);
+
   console.log(movie);
 
   return (

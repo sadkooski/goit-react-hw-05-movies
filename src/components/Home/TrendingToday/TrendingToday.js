@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { fetchMovies } from 'api/api';
 import { Link } from 'react-router-dom';
 
-export const TrendingToday = () => {
+export const TrendingToday = movies => {
   const [bestMovies, setBestMovies] = useState([]);
-
+  // const bestMovies = movies;
   useEffect(() => {
     fetchMovies(setBestMovies);
   }, [setBestMovies]);
-
-  // const getMovieById = id => {
-  //   return bestMovies.find(movie => movie.id === id);
-  // };
 
   return (
     <main>
