@@ -1,5 +1,5 @@
 import { TrendingToday } from 'components/Home/TrendingToday/TrendingToday';
 
-export const Home = movies => {
-  return <TrendingToday movies={movies} />;
+export const Home = () => {
+  return <TrendingToday />;
 };

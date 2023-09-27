@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { fetchMovies } from 'api/api';
+import { fetchBestMovies } from 'api/api';
 import { Link } from 'react-router-dom';
 
-export const TrendingToday = movies => {
+export const TrendingToday = () => {
   const [bestMovies, setBestMovies] = useState([]);
-  // const bestMovies = movies;
+
   useEffect(() => {
-    fetchMovies(setBestMovies);
+    fetchBestMovies(setBestMovies);
   }, [setBestMovies]);
 
   return (
@@ -15,7 +15,7 @@ export const TrendingToday = movies => {
       <ul>
         {bestMovies.map(movie => (
           <li key={movie.id}>
-            <Link to={`/${movie.id}`}>{movie.name || movie.title}</Link>
+            <Link to={`/movies/${movie.id}`}>{movie.name || movie.title}</Link>
           </li>
         ))}
       </ul>
