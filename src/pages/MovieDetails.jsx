@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { fetchMovieDetails } from 'api/api';
 
@@ -7,42 +7,44 @@ export const MovieDetails = () => {
 
   const { movieId } = useParams();
 
-  console.log(movieId);
-
   useEffect(() => {
     fetchMovieDetails(setMovieDetails, movieId);
   }, [setMovieDetails, movieId]);
 
-  const details = movieDetails.genres.map(movie => {
-    console.log(movie.genre);
-  });
-  // console.log('1', movieDetails.genres[0].name);
+  const fullPosterPath =
+    'https://image.tmdb.org/t/p/w400/' + movieDetails.poster_path;
+
   return (
     <main>
       <div>
-        <img src="" alt="" />
+        <img src={fullPosterPath} alt="" />
         <div>
           <h2>{movieDetails.original_title}</h2>
           <span>User Score: {Math.round(movieDetails.vote_average * 10)}%</span>
           <h3>Overview</h3>
           <p>{movieDetails.overview}</p>
-          <h3>Genres</h3>
-          {/* {movieDetails.genres.map(genre => {
-            <span>{genre.name}</span>;
-          })} */}
+          {movieDetails.genres ? (
+            <div>
+              <h3>Genres</h3>
+              {movieDetails.genres.map(genre => {
+                return <span>{genre.name}&nbsp;</span>;
+              })}
+            </div>
+          ) : null}
         </div>
       </div>
       <div>
         <span>Additional information</span>
         <ul>
           <li>
-            <a href="*">Cast</a>
+            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
           </li>
           <li>
-            <a href="*">Reviews</a>
+            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
           </li>
         </ul>
       </div>
+      <Outlet />
     </main>
   );
 };

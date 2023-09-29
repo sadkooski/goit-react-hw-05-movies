@@ -23,6 +23,31 @@ export const fetchMovieDetails = async (setMovieDetails, id) => {
   }
 };
 
+export const fetchMovieCredits = async (setMovieCredits, id) => {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US&api_key=cc63449c5a93a3a95e20690fb0c768c8`
+    );
+    const data = await response.json();
+    setMovieCredits(data);
+  } catch (error) {
+    console.log('errr', error);
+  }
+};
+
+export const fetchMovieReviews = async (setMovieReviews, id) => {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&api_key=cc63449c5a93a3a95e20690fb0c768c8`
+    );
+    const data = await response.json();
+    setMovieReviews(data.results);
+    console.log(data.results);
+  } catch (error) {
+    console.log('errr', error);
+  }
+};
+
 // fetch(
 //   'https://api.themoviedb.org/3/movie/movie_id?language=en-US&api_key=cc63449c5a93a3a95e20690fb0c768c',
 //   options
