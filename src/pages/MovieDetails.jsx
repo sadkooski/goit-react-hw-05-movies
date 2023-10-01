@@ -1,6 +1,8 @@
 import { Outlet, useParams, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { fetchMovieDetails } from 'api/api';
+import { nanoid } from 'nanoid';
+import { BackButton } from 'components/BackButton';
 
 export const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState([]);
@@ -16,6 +18,7 @@ export const MovieDetails = () => {
 
   return (
     <main>
+      <BackButton />
       <div>
         <img src={fullPosterPath} alt="" />
         <div>
@@ -27,7 +30,7 @@ export const MovieDetails = () => {
             <div>
               <h3>Genres</h3>
               {movieDetails.genres.map(genre => {
-                return <span>{genre.name}&nbsp;</span>;
+                return <span key={nanoid()}>{genre.name}&nbsp;</span>;
               })}
             </div>
           ) : null}

@@ -11,6 +11,19 @@ export const fetchBestMovies = async setBestMovies => {
   }
 };
 
+export const fetchMovies = async movie => {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${movie}&include_adult=false&language=en-US&page=1&api_key=cc63449c5a93a3a95e20690fb0c768c8`
+    );
+    const data = await response.json();
+    console.log(data.results[0]);
+    return data.results;
+  } catch (error) {
+    console.log('errr', error);
+  }
+};
+
 export const fetchMovieDetails = async (setMovieDetails, id) => {
   try {
     const response = await fetch(

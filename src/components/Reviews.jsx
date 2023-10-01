@@ -1,6 +1,7 @@
 import { fetchMovieReviews } from 'api/api';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 
 export const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState([]);
@@ -18,7 +19,7 @@ export const Reviews = () => {
           <div>
             {movieReviews.map(review => {
               return (
-                <li>
+                <li key={nanoid()}>
                   <h3>Author: {review.author}</h3>
                   <p>{review.content}</p>
                 </li>

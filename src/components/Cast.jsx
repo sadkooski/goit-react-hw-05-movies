@@ -1,6 +1,7 @@
 import { fetchMovieCredits } from 'api/api';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 
 export const Cast = () => {
   const [movieCredits, setMovieCredits] = useState([]);
@@ -22,7 +23,7 @@ export const Cast = () => {
                 `https://image.tmdb.org/t/p/w185/${actor.profile_path}`;
 
               return (
-                <li>
+                <li key={nanoid()}>
                   <img src={fullProfilePath} alt={actor.name} />
                   <span>{actor.name}</span>
                   <span>Characters: {actor.character}</span>
