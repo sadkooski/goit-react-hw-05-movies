@@ -22,7 +22,7 @@ export const Movies = () => {
     if (isSubmit) {
       fetchData();
     }
-  }, [searchedMovie, movieList]);
+  }, [searchedMovie, isSubmit]);
 
   const handleSubmit = event => {
     event.preventDefault();
