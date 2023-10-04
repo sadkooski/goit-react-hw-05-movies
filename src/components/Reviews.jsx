@@ -17,14 +17,15 @@ export const Reviews = () => {
       <ul>
         {movieReviews ? (
           <div>
-            {movieReviews.map(review => {
-              return (
-                <li key={nanoid()}>
-                  <h3>Author: {review.author}</h3>
-                  <p>{review.content}</p>
-                </li>
-              );
-            })}
+            {movieReviews.length !== 0 &&
+              movieReviews.map(review => {
+                return (
+                  <li key={nanoid()}>
+                    <h3>Author: {review.author}</h3>
+                    <p>{review.content}</p>
+                  </li>
+                );
+              })}
           </div>
         ) : null}
       </ul>

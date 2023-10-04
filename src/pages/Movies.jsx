@@ -1,5 +1,6 @@
 import { BackButton } from 'components/BackButton';
 import { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { fetchMovies } from 'api/api';
 import { Link } from 'react-router-dom';
 
@@ -7,28 +8,35 @@ export const Movies = () => {
   const [searchedMovie, setSearchedMovie] = useState('');
   const [isSubmit, setIsSubmit] = useState(false);
   const [movieList, setMovieList] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchMovies(searchedMovie);
         setMovieList(data);
-        console.log(movieList);
       } catch (error) {
         console.log('error', error);
       }
     };
 
-    if (isSubmit) {
+    if (isSubmit && searchedMovie !== '') {
       fetchData();
     }
   }, [searchedMovie, isSubmit]);
 
   const handleSubmit = event => {
     event.preventDefault();
+
     setIsSubmit(true);
     setSearchedMovie(event.target.firstChild.value);
+    setSearchParams({ query: event.target.firstChild.value });
+    navigate(`/movies?query=${event.target.firstChild.value}`);
   };
+
+  console.log('1', isSubmit, movieList);
 
   return (
     <main>

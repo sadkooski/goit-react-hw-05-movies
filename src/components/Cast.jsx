@@ -21,10 +21,11 @@ export const Cast = () => {
               const fullProfilePath =
                 actor.profile_path &&
                 `https://image.tmdb.org/t/p/w185/${actor.profile_path}`;
-
               return (
                 <li key={nanoid()}>
-                  <img src={fullProfilePath} alt={actor.name} />
+                  {fullProfilePath !== null && (
+                    <img src={fullProfilePath} alt={actor.name} />
+                  )}
                   <span>{actor.name}</span>
                   <span>Characters: {actor.character}</span>
                 </li>
