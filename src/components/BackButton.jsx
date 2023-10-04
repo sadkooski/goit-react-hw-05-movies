@@ -10,15 +10,3 @@ export const BackButton = () => {
 
   return <button onClick={handleGoBack}>Go back</button>;
 };
-
-// function BackButton() {
-//   const history = useHistory();
-
-//   const handleGoBack = () => {
-//     history.goBack(); // Wraca do poprzedniej strony w historii przeglądania
-//   };
-
-//   return (
-//     <button onClick={handleGoBack}>Wróć</button>
-//   );
-// }

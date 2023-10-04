@@ -1,31 +1,55 @@
 import { BackButton } from 'components/BackButton';
-import { useEffect, useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import { fetchMovies } from 'api/api';
-import { Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Movies = () => {
   const [searchedMovie, setSearchedMovie] = useState('');
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [movieList, setMovieList] = useState([]);
 
-  console.log(searchedMovie);
-  // useEffect(() => {
-  //   fetchMovies(searchedMovie);
-  // }, [searchedMovie]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchMovies(searchedMovie);
+        setMovieList(data);
+        console.log(movieList);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+
+    if (isSubmit) {
+      fetchData();
+    }
+  }, [searchedMovie, movieList]);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    setIsSubmit(true);
+    setSearchedMovie(event.target.firstChild.value);
+  };
 
   return (
     <main>
       <BackButton />
-      <form>
-        <input
-          type="text"
-          value={searchedMovie}
-          onChange={evt => setSearchedMovie(evt.target.value)}
-        />
-        <Link to={`/movies?query=${searchedMovie}`}>
-          <button type="submit">Search</button>
-        </Link>
+      <form onSubmit={handleSubmit}>
+        <input type="text" />
+        <button type="submit">Search</button>
       </form>
-      <Outlet />
+      {isSubmit === true && (
+        <section>
+          <ul>
+            {movieList.map(movie => (
+              <li key={movie.id}>
+                <Link to={`/movies/${movie.id}`}>
+                  {movie.name || movie.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 };
