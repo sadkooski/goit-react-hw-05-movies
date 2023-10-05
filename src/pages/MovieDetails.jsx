@@ -1,4 +1,4 @@
-import { Outlet, useParams, Link } from 'react-router-dom';
+import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { fetchMovieDetails } from 'api/api';
 import { nanoid } from 'nanoid';
@@ -6,8 +6,9 @@ import { BackButton } from 'components/BackButton';
 
 export const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState([]);
-
   const { movieId } = useParams();
+  const location = useLocation();
+  console.log('location', location.state);
 
   useEffect(() => {
     fetchMovieDetails(setMovieDetails, movieId);
@@ -18,7 +19,7 @@ export const MovieDetails = () => {
 
   return (
     <main>
-      <BackButton />
+      <BackButton to={location.state.from} />
       <div>
         <img src={fullPosterPath} alt="" />
         <div>
@@ -40,10 +41,20 @@ export const MovieDetails = () => {
         <span>Additional information</span>
         <ul>
           <li>
-            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+            <Link
+              to={`/movies/${movieId}/cast`}
+              state={{ from: `/movies/${movieId}` }}
+            >
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+            <Link
+              to={`/movies/${movieId}/reviews`}
+              state={{ from: `/movies/${movieId}` }}
+            >
+              Reviews
+            </Link>
           </li>
         </ul>
       </div>

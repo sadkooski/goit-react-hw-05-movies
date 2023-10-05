@@ -15,7 +15,7 @@ export const SearchedMovie = () => {
     setSearchQuery(movies);
 
     console.log('query', Object.values(searchQuery));
-  }, [query, setSearchQuery]);
+  }, [query, searchQuery, setSearchQuery]);
 
   return (
     <section>

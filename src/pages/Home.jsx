@@ -15,7 +15,9 @@ export const Home = () => {
       <ul>
         {bestMovies.map(movie => (
           <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.name || movie.title}</Link>
+            <Link to={`/movies/${movie.id}`} state={{ from: '/' }}>
+              {movie.name || movie.title}
+            </Link>
           </li>
         ))}
       </ul>
