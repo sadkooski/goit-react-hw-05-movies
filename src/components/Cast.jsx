@@ -12,6 +12,21 @@ export const Cast = () => {
     fetchMovieCredits(setMovieCredits, movieId);
   }, [setMovieCredits, movieId]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchMovieCredits(movieId);
+        setMovieCredits(data);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+
+    if (movieCredits.length === 0) {
+      fetchData();
+    }
+  }, [movieId, setMovieCredits]);
+
   return (
     <section>
       <ul>

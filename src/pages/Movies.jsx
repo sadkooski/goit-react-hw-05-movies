@@ -35,6 +35,8 @@ export const Movies = () => {
     }
   }, [searchedMovie, isSubmit, searchParams]);
 
+
+  
   const handleSubmit = event => {
     event.preventDefault();
 

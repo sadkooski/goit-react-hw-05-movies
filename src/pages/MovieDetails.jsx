@@ -11,8 +11,19 @@ export const MovieDetails = () => {
   console.log('location', location.state);
 
   useEffect(() => {
-    fetchMovieDetails(setMovieDetails, movieId);
-  }, [setMovieDetails, movieId]);
+    const fetchData = async () => {
+      try {
+        const data = await fetchMovieDetails(movieId);
+        setMovieDetails(data);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+
+    if (movieDetails.length === 0) {
+      fetchData();
+    }
+  }, [movieId, movieDetails, setMovieDetails]);
 
   const fullPosterPath =
     'https://image.tmdb.org/t/p/w400/' + movieDetails.poster_path;

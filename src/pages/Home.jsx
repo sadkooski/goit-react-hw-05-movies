@@ -5,9 +5,24 @@ import { Link } from 'react-router-dom';
 export const Home = () => {
   const [bestMovies, setBestMovies] = useState([]);
 
+  // useEffect(() => {
+  //   fetchBestMovies(setBestMovies);
+  // }, [setBestMovies]);
+
   useEffect(() => {
-    fetchBestMovies(setBestMovies);
-  }, [setBestMovies]);
+    const fetchData = async () => {
+      try {
+        const data = await fetchBestMovies();
+        setBestMovies(data);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+
+    if (bestMovies.length === 0) {
+      fetchData();
+    }
+  }, [setBestMovies, bestMovies]);
 
   return (
     <main>

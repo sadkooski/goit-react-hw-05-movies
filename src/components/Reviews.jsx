@@ -9,8 +9,19 @@ export const Reviews = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
-    fetchMovieReviews(setMovieReviews, movieId);
-  }, [setMovieReviews, movieId]);
+    const fetchData = async () => {
+      try {
+        const data = await fetchMovieReviews(movieId);
+        setMovieReviews(data);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+
+    if (movieReviews.length === 0) {
+      fetchData();
+    }
+  }, [setMovieReviews, movieId, movieReviews]);
 
   return (
     <section>

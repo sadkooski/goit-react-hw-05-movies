@@ -1,11 +1,11 @@
-export const fetchBestMovies = async setBestMovies => {
+export const fetchBestMovies = async () => {
   try {
     const response = await fetch(
       'https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=cc63449c5a93a3a95e20690fb0c768c8'
     );
     const data = await response.json();
-
-    setBestMovies(data.results);
+    console.log(data.results);
+    return data.results;
   } catch (error) {
     console.log('errr', error);
   }
@@ -24,38 +24,42 @@ export const fetchMovies = async movie => {
   }
 };
 
-export const fetchMovieDetails = async (setMovieDetails, id) => {
+export const fetchMovieDetails = async id => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=cc63449c5a93a3a95e20690fb0c768c8`
     );
     const data = await response.json();
-    setMovieDetails(data);
+    console.log(data);
+    return data;
+    // setMovieDetails(data);
   } catch (error) {
     console.log('errr', error);
+    throw error;
   }
 };
 
-export const fetchMovieCredits = async (setMovieCredits, id) => {
+export const fetchMovieCredits = async id => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US&api_key=cc63449c5a93a3a95e20690fb0c768c8`
     );
     const data = await response.json();
-    setMovieCredits(data);
+    console.log(data);
+    return data;
   } catch (error) {
     console.log('errr', error);
   }
 };
 
-export const fetchMovieReviews = async (setMovieReviews, id) => {
+export const fetchMovieReviews = async id => {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&api_key=cc63449c5a93a3a95e20690fb0c768c8`
     );
     const data = await response.json();
-    setMovieReviews(data.results);
     console.log(data.results);
+    return data.results;
   } catch (error) {
     console.log('errr', error);
   }
