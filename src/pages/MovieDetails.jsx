@@ -1,5 +1,5 @@
 import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { fetchMovieDetails } from 'api/api';
 import { nanoid } from 'nanoid';
 import { BackButton } from 'components/BackButton';
@@ -8,13 +8,17 @@ export const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const { movieId } = useParams();
   const location = useLocation();
-  console.log('location', location.state);
+  // console.log('location', location.state);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchMovieDetails(movieId);
-        setMovieDetails(data);
+        if (data) {
+          setMovieDetails(data);
+        } else {
+          console.log(`There aren't any movie data `);
+        }
       } catch (error) {
         console.log('error', error);
       }
@@ -69,7 +73,9 @@ export const MovieDetails = () => {
           </li>
         </ul>
       </div>
-      <Outlet />
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>{' '}
     </main>
   );
 };

@@ -12,7 +12,11 @@ export const Reviews = () => {
     const fetchData = async () => {
       try {
         const data = await fetchMovieReviews(movieId);
-        setMovieReviews(data);
+        if (data.length > 0) {
+          setMovieReviews(data);
+        } else {
+          console.log(`There aren't any reviews.`);
+        }
       } catch (error) {
         console.log('error', error);
       }

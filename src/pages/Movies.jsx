@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 import { fetchMovies } from 'api/api';
 import { Link } from 'react-router-dom';
-// import { SearchedMovie } from 'components/SearchedMovie';
 
 export const Movies = () => {
   const [searchedMovie, setSearchedMovie] = useState('');
   const [isSubmit, setIsSubmit] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,17 +32,11 @@ export const Movies = () => {
     }
   }, [searchedMovie, isSubmit, searchParams]);
 
-
-  
   const handleSubmit = event => {
     event.preventDefault();
 
     setIsSubmit(true);
-    // setSearchedMovie(event.target.firstChild.value);
-    // navigate(`/movies?query=${event.target.firstChild.value}`);
-    // setSearchParams(SearchedMovie);
     setSearchParams({ query: event.target.firstChild.value });
-    // fetchData(searchParams);
   };
 
   const onChange = event => {

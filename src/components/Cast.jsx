@@ -17,6 +17,11 @@ export const Cast = () => {
       try {
         const data = await fetchMovieCredits(movieId);
         setMovieCredits(data);
+        if (data) {
+          setMovieCredits(data);
+        } else {
+          console.log(`There aren't any cast info.`);
+        }
       } catch (error) {
         console.log('error', error);
       }
@@ -25,7 +30,7 @@ export const Cast = () => {
     if (movieCredits.length === 0) {
       fetchData();
     }
-  }, [movieId, setMovieCredits]);
+  }, [movieCredits, movieId, setMovieCredits]);
 
   return (
     <section>
