@@ -2,7 +2,7 @@ import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect, Suspense } from 'react';
 import { fetchMovieDetails } from 'api/api';
 import { nanoid } from 'nanoid';
-import { BackButton } from 'components/BackButton';
+import { BackButton } from 'components/BackButton/BackButton';
 
 export const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState([]);
