@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchBestMovies } from 'api/api';
 import { Link } from 'react-router-dom';
+import { Title, Movies, MovieList } from './Home..styled';
 
 export const Home = () => {
   const [bestMovies, setBestMovies] = useState([]);
@@ -22,16 +23,18 @@ export const Home = () => {
 
   return (
     <main>
-      <h1>Trending today</h1>
-      <ul>
-        {bestMovies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`} state={{ from: '/' }}>
-              {movie.name || movie.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <Movies>
+        <Title>Trending today</Title>
+        <MovieList>
+          {bestMovies.map(movie => (
+            <li key={movie.id}>
+              <Link to={`/movies/${movie.id}`} state={{ from: '/' }}>
+                {movie.name || movie.title}
+              </Link>
+            </li>
+          ))}
+        </MovieList>
+      </Movies>
     </main>
   );
 };
