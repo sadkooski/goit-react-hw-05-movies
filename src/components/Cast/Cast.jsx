@@ -2,6 +2,7 @@ import { fetchMovieCredits } from 'api/api';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+import { CastList, Actor, ActorInfo, CastElement } from './Cast.styled';
 
 export const Cast = () => {
   const [movieCredits, setMovieCredits] = useState([]);
@@ -34,26 +35,32 @@ export const Cast = () => {
 
   return (
     <section>
-      <ul>
+      <CastList>
         {movieCredits.cast ? (
-          <div>
+          <CastElement>
             {movieCredits.cast.map(actor => {
               const fullProfilePath =
                 actor.profile_path &&
                 `https://image.tmdb.org/t/p/w185/${actor.profile_path}`;
               return (
-                <li key={nanoid()}>
+                <Actor key={nanoid()}>
                   {fullProfilePath !== null && (
-                    <img src={fullProfilePath} alt={actor.name} />
+                    <img
+                      src={fullProfilePath}
+                      alt={actor.name}
+                      style={{ width: '250px' }}
+                    />
                   )}
-                  <span>{actor.name}</span>
-                  <span>Characters: {actor.character}</span>
-                </li>
+                  <ActorInfo>
+                    <span>{actor.name}</span>
+                    <span>Characters: {actor.character}</span>
+                  </ActorInfo>
+                </Actor>
               );
             })}
-          </div>
+          </CastElement>
         ) : null}
-      </ul>
+      </CastList>
     </section>
   );
 };
