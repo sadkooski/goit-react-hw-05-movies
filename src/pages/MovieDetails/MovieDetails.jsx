@@ -3,6 +3,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { fetchMovieDetails } from 'api/api';
 import { nanoid } from 'nanoid';
 import { BackButton } from 'components/BackButton/BackButton';
+import { MovieInfo, MovieAddInfo } from './MovieDetails.styled';
 
 export const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState([]);
@@ -35,7 +36,7 @@ export const MovieDetails = () => {
   return (
     <main>
       <BackButton to={location.state.from} />
-      <div>
+      <MovieInfo>
         <img src={fullPosterPath} alt="" />
         <div>
           <h2>{movieDetails.original_title}</h2>
@@ -51,8 +52,8 @@ export const MovieDetails = () => {
             </div>
           ) : null}
         </div>
-      </div>
-      <div>
+      </MovieInfo>
+      <MovieAddInfo>
         <span>Additional information</span>
         <ul>
           <li>
@@ -72,7 +73,7 @@ export const MovieDetails = () => {
             </Link>
           </li>
         </ul>
-      </div>
+      </MovieAddInfo>
       <Suspense fallback={<div>Loading subpage...</div>}>
         <Outlet />
       </Suspense>{' '}
